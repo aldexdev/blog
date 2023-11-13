@@ -46,13 +46,16 @@ export async function Image({
           );
         }
       }
+
       const computedSize = sizeOf(imageBuffer);
+
       if (
         computedSize.width === undefined ||
         computedSize.height === undefined
       ) {
         throw new Error("Could not compute image size");
       }
+
       width = computedSize.width;
       height = computedSize.height;
     }
@@ -62,6 +65,7 @@ export async function Image({
 
     if ("string" === typeof originalAlt) {
       const match = originalAlt.match(/(.*) (\[(\d+)%\])?$/);
+
       if (match != null) {
         alt = match[1];
         dividedBy = match[3] ? parseInt(match[3]) : 100;
@@ -80,7 +84,6 @@ export async function Image({
           alt={alt ?? ""}
           src={src}
         />
-
         {alt && <Caption>{alt}</Caption>}
       </span>
     );

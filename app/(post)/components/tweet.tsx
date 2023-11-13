@@ -32,6 +32,7 @@ async function getAndCacheTweet(id: string): Promise<Tweet | undefined> {
 
 const TweetContent = async ({ id, components, onError }: TweetProps) => {
   let error;
+
   const tweet = id
     ? await getAndCacheTweet(id).catch(err => {
         if (onError) {

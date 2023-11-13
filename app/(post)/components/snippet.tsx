@@ -18,7 +18,6 @@ export const Snippet = ({ children, scroll = true, caption = null }) => (
     >
       <code>{children}</code>
     </pre>
-
     {caption != null ? <Caption>{caption}</Caption> : null}
   </div>
 );

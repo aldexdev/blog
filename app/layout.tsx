@@ -2,30 +2,29 @@ import "./globals.css";
 
 import { Inter } from "next/font/google";
 import { themeEffect } from "./theme-effect";
-import { Analytics } from "./analytics";
 import { Header } from "./header";
 import { Footer } from "./footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Guillermo Rauch's blog",
+  title: "Alex Delgado",
   description:
-    "Guillermo Rauch is the CEO and founder of Vercel, a software engineer, and the creator of Next.js, Mongoose, Socket.io and other open source libraries.",
+    "Alex Delgado is a software engeneer and a project manager specialized in Agile methodologies.",
   openGraph: {
-    title: "Guillermo Rauchg's blog",
+    title: "Alex Delgado's blog",
     description:
-      "Guillermo Rauch is the CEO and founder of Vercel, a software engineer, and the creator of Next.js, Mongoose, Socket.io and other open source libraries.",
-    url: "https://rauchg.com",
-    siteName: "Guillermo Rauchg's blog",
+      "Alex Delgado is a software engeneer and a project manager specialized in Agile methodologies.",
+    url: "https://aldexdev.com",
+    siteName: "Alex Delgado's blog",
   },
   twitter: {
     card: "summary_large_image",
-    site: "@rauchg",
-    creator: "@rauchg",
+    site: "@aldexdev",
+    creator: "@aldexdev",
   },
   themeColor: "transparent",
-  metadataBase: new URL("https://rauchg.com"),
+  metadataBase: new URL("https://aldexdev.com"),
 };
 
 export default function RootLayout({
@@ -54,7 +53,6 @@ export default function RootLayout({
         </main>
 
         <Footer />
-        <Analytics />
       </body>
     </html>
   );

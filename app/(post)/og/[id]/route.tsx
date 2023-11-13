@@ -3,7 +3,7 @@ export const runtime = "edge";
 import { ImageResponse } from "next/server";
 import { getPosts } from "@/app/get-posts";
 
-// fonts
+// FONTS
 const inter300 = fetch(
   new URL(
     `../../../../node_modules/@fontsource/inter/files/inter-latin-300-normal.woff`,
@@ -47,10 +47,10 @@ export async function GET(_req: Request, { params: { id } }) {
       >
         <header tw="flex text-[36px] w-full">
           <div tw="font-bold" style={font("Inter 600")}>
-            Guillermo Rauch
+            Alex Delgado
           </div>
           <div tw="grow" />
-          <div tw="text-[28px]">rauchg.com</div>
+          <div tw="text-[28px]">aldexdev.com</div>
         </header>
 
         <main tw="flex grow pb-3 flex-col items-center justify-center">
@@ -67,7 +67,7 @@ export async function GET(_req: Request, { params: { id } }) {
             tw="mt-5 flex text-3xl text-gray-500"
             style={font("Roboto Mono 400")}
           >
-            {post.date} – {post.viewsFormatted} views
+            {post.date}
           </div>
         </main>
       </div>
@@ -97,7 +97,6 @@ export async function GET(_req: Request, { params: { id } }) {
   );
 }
 
-// lil helper for more succinct styles
 function font(fontFamily: string) {
   return { fontFamily };
 }
