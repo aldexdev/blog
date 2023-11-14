@@ -20,26 +20,6 @@
       "assets": []
     }
   },
-  "functions": {
-    "/api/view/route": {
-      "files": [
-        "server/middleware-build-manifest.js",
-        "server/middleware-react-loadable-manifest.js",
-        "server/next-font-manifest.js",
-        "server/edge-runtime-webpack.js",
-        "server/app/api/view/route.js"
-      ],
-      "name": "app/api/view/route",
-      "page": "/api/view/route",
-      "matchers": [
-        {
-          "regexp": "^/api/view$",
-          "originalSource": "/api/view"
-        }
-      ],
-      "wasm": [],
-      "assets": []
-    }
-  },
+  "functions": {},
   "version": 2
 }
