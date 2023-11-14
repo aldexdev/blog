@@ -1,0 +1,198 @@
+export const metadata = {
+  title: "From Good to Great: True Engineers Understand JavaScript Inside Out",
+  description:
+    "The nuances of JavaScript’s Runtime Environment, and why every top engineer should be intimately familiar with them.",
+  openGraph: {
+    title:
+      "From Good to Great: True Engineers Understand JavaScript Inside Out",
+    description:
+      "The nuances of JavaScript’s Runtime Environment, and why every top engineer should be intimately familiar with them.",
+  },
+};
+
+> To write high-quality code, it’s essential to comprehend how that code runs.
+
+Always bear in mind: “Your coding can only be as good as your understanding.”
+
+JavaScript, which holds a significant presence in the global programming world, functions based on a unique execution model.
+
+<Image
+  alt={
+    <span>
+      JS Runtime Environment Diagram created by{" "}
+      <a href="https://twitter.com/yuribett">Yuri Bett</a>
+    </span>
+  }
+  src="/images/good-to-great/js-runtime.webp"
+/>
+
+Let's understand each part of it.
+
+## JAVASCRIPT'S EXECUTION ENVIRONMENT
+
+The execution environment, frequently referred to as the JavaScript engine, is a complex space where all the magic of running your JavaScript code happens.
+Various browsers and platforms have their specialized engines: V8 powers Google Chrome and Node.js; SpiderMonkey is behind Firefox; JavaScriptCore runs inside Safari.
+
+Within this execution environment, two primary components play important roles in how your code gets executed: the Heap and the Call Stack.
+
+### The Heap
+
+- **Nature**: it is a region of your computer’s memory that is unstructured and provides space for storing variables and instances that your program creates.
+- **Dynamics**: when you instantiate a new object or declare a large array, for instance, these are stored in the Heap.
+  This allocation happens dynamically, meaning space is allocated or de-allocated as needed during program execution.
+- **Garbage Collection**: one significant aspect of the Heap is the “Garbage Collection” mechanism.
+  This automatic process identifies when memory is no longer in use and reclaims it.
+  It ensures that applications don’t consume memory that isn’t being used, which can otherwise lead to memory leaks and inefficiencies.
+
+### The Call Stack
+
+- **Nature**: the Call Stack is a Last-In-First-Out (LIFO) data structure that records the point in the program where operations are at — basically,
+  where functions are called so that execution can return to the correct location once those functions have been executed or if an error is thrown.
+- **Dynamics**: when you invoke a function, a new frame (representing that function’s execution context) is pushed onto the Call Stack.
+  As the function completes its execution, its frame is popped off the stack, and control returns to where it was invoked.
+- **Stack Overflow**: if the Call Stack has too many frames (due to, say, a recursive function that never terminates), it can lead to a stack overflow, and the browser will throw an error.
+- **Single-Threaded Nature**: it’s essential to note that JavaScript is single-threaded.
+  This means that only one operation is processed at any given moment.
+  If a function is being executed, it occupies the Call Stack until it’s done, blocking any other function from executing.
+
+For illustrative purposes:
+
+```js
+function multiply(x, y) {
+  return x * y;
+}
+
+function calculate() {
+  const value = multiply(5, 3);
+  console.log(value);
+}
+
+calculate();
+```
+
+In this example:
+
+1. The calculate() function is called, placing its frame on the Call Stack.
+2. Inside calculate(), the multiply() function is invoked, adding its frame to the top of the stack.
+3. Once multiply() completes, it returns the value 15, and its frame is removed from the Call Stack.
+4. The calculate() function continues its execution and logs the value 15 to the console.
+   After it finishes executing, its frame is also popped off the Call Stack.
+
+<Image
+  alt={<span>How JS Runtime Environment works with the example code</span>}
+  src="/images/good-to-great/example.webp"
+/>
+
+## JAVASCRIPT'S ASYNCHRONOUS MECHANICS
+
+In a synchronous world, each instruction must wait for the previous one to complete.
+However, to deal with operations that might take unpredictable amounts of time (like reading a file or fetching data from a server), JavaScript employs a non-blocking, asynchronous model.
+This model is made efficient through a combination of Web APIs, the Callback Queue, and the Event Loop.
+
+### Web APIs
+
+- **Nature**: these are functionalities that the browser (or the environment, in the case of Node.js) provides, which are outside the JavaScript engine but can be accessed using JavaScript.
+- **Purpose**: Web APIs handle tasks that would typically be blocking operations if run on the JavaScript engine directly.
+  For instance, timers (setTimeout and setInterval), AJAX calls (like fetch), and DOM manipulation tasks are managed here.
+- **Interaction**: once a Web API task completes, its callback function is sent to the Callback Queue, ready to be executed.
+
+### Callback Queue
+
+- **Nature**: as the name suggests, it’s a queue (First-In-First-Out structure) that holds all the callback functions that are ready to be executed after their corresponding Web API tasks complete.
+- **Dynamics**: callback functions are lined up in this queue in the order in which their associated tasks finish in the Web API.
+  However, they don’t automatically move to the Call Stack. That’s the job of the Event Loop.
+
+### Event Loop
+
+- **Role**: its primary role is to monitor both the Call Stack and the Callback Queue.
+  If the Call Stack is empty and there’s a function waiting in the Callback Queue, the Event Loop dequeues it and pushes it onto the Call Stack to be executed.
+- **Ensuring Non-blocking Behavior**: the Event Loop ensures that JavaScript remains non-blocking.
+  Even if an asynchronous operation takes a long time in the Web API, other functions can still run and complete in the Call Stack.
+
+Consider the following code fragment:
+
+```js
+console.log("First");
+setTimeout(function () {
+  console.log("Second");
+}, 0);
+console.log("Third");
+```
+
+Let's try to find out its output:
+
+1. console.log('First') is added to the Call Stack and executed.
+2. setTimeout is encountered. The timer operation is handed over to the Web APIs.
+3. Immediately after, console.log('Third') is added to the Call Stack and executed.
+4. Even though the timer duration is 0 milliseconds, the callback of setTimeout (which logs 'Second') is placed in the Callback Queue.
+5. The Event Loop, noticing the Call Stack is empty and there’s a function in the Callback Queue, transfers the callback to the Call Stack.
+6. Finally, console.log('Second') is executed.
+
+Then the output of the code will be:
+
+```
+First
+Third
+Second
+```
+
+This entire mechanism ensures that even for asynchronous code, the program execution flow remains consistent and non-blocking.
+
+Check how the diagram illustrates this case:
+
+<Image
+  alt={<span>How Event Loop works Diagram</span>}
+  src="/images/good-to-great/event-loop-diagram.webp"
+/>
+
+### The Microtask Queue
+
+- **Role**: the Microtask Queue contains a list of microtasks, which originate from promises, MutationObserverand other specific asynchronous operations.
+- **Priority**: microtasks have a higher priority than tasks. So, after each task is executed, the JavaScript runtime checks the microtask queue,
+  and if there are any pending microtasks, it executes all of them before moving on to the next task from the Callback Queue.
+
+In order to understand, consider this example:
+
+```js
+console.log("Start");
+
+setTimeout(() => {
+  console.log("setTimeout");
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log("Promise");
+});
+
+console.log("End");
+```
+
+The output would be:
+
+```
+Start
+End
+Promise
+setTimeout
+```
+
+This order is because, after executing the synchronous code (Start and End),
+the event loop sees there’s a promise in the microtask queue and executes that before the setTimeout in the task queue,
+even though the setTimeout has a delay of 0.
+
+Let's look at the diagram below.
+Note that the Promise is added by the Javascript Engine now since it is a direct promise, not created by fetch, that case it would go first through Web API.
+
+<Image
+  alt={<span>How Microtask Queue works Diagram</span>}
+  src="/images/good-to-great/microtask-diagram.webp"
+/>
+
+## FINAL ADVICE
+
+As we wrap up, here’s something I would have liked to know when I started working in the world of programming and, in particular, with Javascript:
+
+> Being a great developer isn’t just about writing code. It’s about really understanding how that code works.
+
+When you get how things like the Event Loop, Microtask Queue, and Call Stack work, you’ll feel more connected to your code.
+Every piece of code you write will make more sense because you know what’s happening behind the scenes.

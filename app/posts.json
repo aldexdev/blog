@@ -1,6 +1,11 @@
 {
   "posts": [
     {
+      "id": "good-to-great",
+      "date": "April 17, 2023",
+      "title": "From Good to Great: True Engineers Understand JavaScript Inside Out"
+    },
+    {
       "id": "zelda_botw",
       "date": "February 2, 2023",
       "title": "The video game that changed everything. The impact of The Legend of Zelda: Breath of the Wild"
