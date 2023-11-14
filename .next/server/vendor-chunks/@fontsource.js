@@ -21,6 +21,16 @@ module.exports = __webpack_require__.p + "static/media/inter-latin-300-normal.66
 
 /***/ }),
 
+/***/ "(rsc)/./node_modules/@fontsource/inter/files/inter-latin-500-normal.woff":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@fontsource/inter/files/inter-latin-500-normal.woff ***!
+  \**************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "static/media/inter-latin-500-normal.32f7e84c.woff";
+
+/***/ }),
+
 /***/ "(rsc)/./node_modules/@fontsource/inter/files/inter-latin-600-normal.woff":
 /*!**************************************************************************!*\
   !*** ./node_modules/@fontsource/inter/files/inter-latin-600-normal.woff ***!

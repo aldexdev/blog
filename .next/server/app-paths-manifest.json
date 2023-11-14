@@ -1,7 +1,5 @@
 {
-  "/api/view/route": "app/api/view/route.js",
   "/page": "app/page.js",
-  "/icon.png/route": "app/icon.png/route.js",
-  "/api/posts/route": "app/api/posts/route.js",
-  "/(post)/2023/zelda_botw/page": "app/(post)/2023/zelda_botw/page.js"
+  "/about/page": "app/about/page.js",
+  "/api/posts/route": "app/api/posts/route.js"
 }

@@ -515,7 +515,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"posts":[{"id":"zelda_botw","date":"February 2, 2023","title":"The video game that changed everything. The impact of The Legend of Zelda: Breath of the Wild"},{"id":"elden-ring","date":"December 11, 2022","title":"Changing the \\"world\\". Deepening into Elden Ring success"},{"id":"titanfall","date":"May 4, 2022","title":"Titanfall: the self-sabotage masterpiece"},{"id":"pt","date":"March 20, 2021","title":"The scariest video game ever created but never released"},{"id":"ac-unity","date":"November 20, 2021","title":"Mobility as a strength of a video game: Assassin\'s Creed Unity"},{"id":"develop-preview-test","date":"June 11, 2020","title":"Develop, Preview, Test"}]}');
+module.exports = JSON.parse('{"posts":[{"id":"zelda_botw","date":"February 2, 2023","title":"The video game that changed everything. The impact of The Legend of Zelda: Breath of the Wild"},{"id":"elden-ring","date":"December 11, 2022","title":"Changing the \\"world\\". Deepening into Elden Ring success"},{"id":"chat-app-arch","date":"July 23, 2022","title":"System Design and Architecture of a Chat Application"},{"id":"titanfall","date":"May 4, 2022","title":"Titanfall: the self-sabotage masterpiece"},{"id":"pt","date":"March 20, 2021","title":"The scariest video game ever created but never released"},{"id":"ac-unity","date":"November 20, 2021","title":"Mobility as a strength of a video game: Assassin\'s Creed Unity"},{"id":"develop-preview-test","date":"June 11, 2020","title":"Develop, Preview, Test"}]}');
 
 /***/ })
 
