@@ -9,20 +9,6 @@ export default async function AboutOG() {
   ).then(res => res.arrayBuffer());
 
   // fonts
-  const inter300 = fetch(
-    new URL(
-      `../../node_modules/@fontsource/inter/files/inter-latin-300-normal.woff`,
-      import.meta.url
-    )
-  ).then(res => res.arrayBuffer());
-
-  const inter500 = fetch(
-    new URL(
-      `../../node_modules/@fontsource/inter/files/inter-latin-500-normal.woff`,
-      import.meta.url
-    )
-  ).then(res => res.arrayBuffer());
-
   const robotoMono400 = fetch(
     new URL(
       `../../node_modules/@fontsource/roboto-mono/files/roboto-mono-latin-400-normal.woff`,
@@ -69,14 +55,6 @@ export default async function AboutOG() {
       width: 1200,
       height: 630,
       fonts: [
-        {
-          name: "Inter 300",
-          data: await inter300,
-        },
-        {
-          name: "Inter 500",
-          data: await inter500,
-        },
         {
           name: "Roboto Mono 400",
           data: await robotoMono400,
