@@ -12,7 +12,7 @@ exports.id = "app/page";
 exports.ids = ["app/page"];
 exports.modules = {
 
-/***/ "../shared/lib/app-router-context.shared-runtime":
+/***/ "../../shared/lib/app-router-context.shared-runtime":
 /*!********************************************************************************************************************!*\
   !*** external "/Users/alejandro/Desktop/blog/node_modules/next/dist/shared/lib/app-router-context.shared-runtime" ***!
   \********************************************************************************************************************/

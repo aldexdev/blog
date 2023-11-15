@@ -269,61 +269,50 @@
   box-sizing: inherit;
 }
 
-/*!***************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[8].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[8].oneOf[12].use[3]!./app/(post)/components/tweet.css ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************/
-/* generic resets so that we inherit from the parent */
-.tweet .react-tweet-theme {
-  /* margin is handled by our wrappers */
-  --tweet-container-margin: 0;
-  --tweet-font-family: inherit;
-  --tweet-font-color: inherit;
-
-  /* light colors override */
-  --tweet-bg-color-hover: --tweet-bg-color;
-  --tweet-color-blue-secondary: #4b5563;
-  --tweet-color-blue-secondary-hover: #f3f4f6;
-  --tweet-font-color-secondary: #6b7280;
-
-  /* these are all default, but we reset them so they don't get
-   * overriden by the media(prefers-color-scheme: dark) selector
-   * which forces the tweet to be dark even though we allow the
-   * user to force-select a light theme */
-  --tweet-bg-color: #fff;
-  --tweet-quoted-bg-color-hover: rgba(0, 0, 0, 0.03);
-  --tweet-border: 1px solid rgb(207, 217, 222);
-  --tweet-skeleton-gradient: linear-gradient(270deg,
-      #fafafa,
-      #eaeaea,
-      #eaeaea,
-      #fafafa);
-  --tweet-color-red-primary: rgb(249, 24, 128);
-  --tweet-color-red-primary-hover: rgba(249, 24, 128, 0.1);
-  --tweet-color-green-primary: rgb(0, 186, 124);
-  --tweet-color-green-primary-hover: rgba(0, 186, 124, 0.1);
-  --tweet-twitter-icon-color: var(--tweet-font-color);
-  --tweet-verified-old-color: rgb(130, 154, 171);
-  --tweet-verified-blue-color: var(--tweet-color-blue-primary);
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[8].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[8].oneOf[7].use[3]!./node_modules/react-tweet/dist/twitter-theme/icons/icons.module.css ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************/
+.icons_verified__1eJnA {
+  margin-left: 0.125rem;
+  max-width: 20px;
+  max-height: 20px;
+  height: 1.25em;
+  fill: currentColor;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  vertical-align: text-bottom;
 }
 
-.dark .tweet .react-tweet-theme {
-  --tweet-bg-color: #222;
-  --tweet-bg-color-hover: #222;
-  --tweet-quoted-bg-color-hover: rgba(255, 255, 255, 0.03);
-  --tweet-border: 1px solid #333;
-  --tweet-color-blue-secondary: #fff;
-  --tweet-color-blue-secondary-hover: #333;
-  --tweet-font-color-secondary: #9ca3af;
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[8].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[8].oneOf[7].use[3]!./node_modules/react-tweet/dist/twitter-theme/tweet-container.module.css ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************/
+.tweet-container_root__0rJLq {
+  width: 100%;
+  min-width: 250px;
+  max-width: 550px;
+  overflow: hidden;
+  /* Base font styles */
+  color: var(--tweet-font-color);
+  font-family: var(--tweet-font-family);
+  font-weight: 400;
+  box-sizing: border-box;
+  border: var(--tweet-border);
+  border-radius: 12px;
+  margin: var(--tweet-container-margin);
+  background-color: var(--tweet-bg-color);
+  transition-property: background-color, box-shadow;
+  transition-duration: 0.2s;
+}
+.tweet-container_root__0rJLq:hover {
+  background-color: var(--tweet-bg-color-hover);
+}
+.tweet-container_article__0ERPK {
+  position: relative;
+  box-sizing: inherit;
+  padding: 0.75rem 1rem;
 }
 
-.tweet .react-tweet-theme p {
-  font-size: inherit;
-  line-height: 1.3rem;
-}
-
-.tweet .react-tweet-theme p a:hover {
-  text-decoration: none;
-}
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[8].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[8].oneOf[12].use[3]!./node_modules/react-tweet/dist/twitter-theme/theme.css ***!
   \*************************************************************************************************************************************************************************************************************************************************************************************************/
@@ -461,64 +450,6 @@
   }
 }
 
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[8].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[8].oneOf[7].use[3]!./node_modules/react-tweet/dist/twitter-theme/tweet-container.module.css ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************/
-.tweet-container_root__0rJLq {
-  width: 100%;
-  min-width: 250px;
-  max-width: 550px;
-  overflow: hidden;
-  /* Base font styles */
-  color: var(--tweet-font-color);
-  font-family: var(--tweet-font-family);
-  font-weight: 400;
-  box-sizing: border-box;
-  border: var(--tweet-border);
-  border-radius: 12px;
-  margin: var(--tweet-container-margin);
-  background-color: var(--tweet-bg-color);
-  transition-property: background-color, box-shadow;
-  transition-duration: 0.2s;
-}
-.tweet-container_root__0rJLq:hover {
-  background-color: var(--tweet-bg-color-hover);
-}
-.tweet-container_article__0ERPK {
-  position: relative;
-  box-sizing: inherit;
-  padding: 0.75rem 1rem;
-}
-
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[8].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[8].oneOf[7].use[3]!./node_modules/react-tweet/dist/twitter-theme/icons/icons.module.css ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************/
-.icons_verified__1eJnA {
-  margin-left: 0.125rem;
-  max-width: 20px;
-  max-height: 20px;
-  height: 1.25em;
-  fill: currentColor;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
-  vertical-align: text-bottom;
-}
-
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[8].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[8].oneOf[7].use[3]!./node_modules/react-tweet/dist/twitter-theme/verified-badge.module.css ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************************/
-.verified-badge_verifiedOld__zcaba {
-  color: var(--tweet-verified-old-color);
-}
-.verified-badge_verifiedBlue__s3_Vu {
-  color: var(--tweet-verified-blue-color);
-}
-.verified-badge_verifiedGovernment__qRJxq {
-  /* color: var(--tweet-verified-government-color); */
-  color: rgb(130, 154, 171);
-}
-
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[8].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[8].oneOf[7].use[3]!./node_modules/react-tweet/dist/twitter-theme/tweet-header.module.css ***!
   \*************************************************************************************************************************************************************************************************************************************************************************************************************/
@@ -619,6 +550,20 @@
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+}
+
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[8].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[8].oneOf[7].use[3]!./node_modules/react-tweet/dist/twitter-theme/verified-badge.module.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************/
+.verified-badge_verifiedOld__zcaba {
+  color: var(--tweet-verified-old-color);
+}
+.verified-badge_verifiedBlue__s3_Vu {
+  color: var(--tweet-verified-blue-color);
+}
+.verified-badge_verifiedGovernment__qRJxq {
+  /* color: var(--tweet-verified-government-color); */
+  color: rgb(130, 154, 171);
 }
 
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
@@ -848,3 +793,58 @@
   padding-bottom: 0.25rem;
 }
 
+/*!***************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[8].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[8].oneOf[12].use[3]!./app/(post)/components/tweet.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************/
+/* generic resets so that we inherit from the parent */
+.tweet .react-tweet-theme {
+  /* margin is handled by our wrappers */
+  --tweet-container-margin: 0;
+  --tweet-font-family: inherit;
+  --tweet-font-color: inherit;
+
+  /* light colors override */
+  --tweet-bg-color-hover: --tweet-bg-color;
+  --tweet-color-blue-secondary: #4b5563;
+  --tweet-color-blue-secondary-hover: #f3f4f6;
+  --tweet-font-color-secondary: #6b7280;
+
+  /* these are all default, but we reset them so they don't get
+   * overriden by the media(prefers-color-scheme: dark) selector
+   * which forces the tweet to be dark even though we allow the
+   * user to force-select a light theme */
+  --tweet-bg-color: #fff;
+  --tweet-quoted-bg-color-hover: rgba(0, 0, 0, 0.03);
+  --tweet-border: 1px solid rgb(207, 217, 222);
+  --tweet-skeleton-gradient: linear-gradient(270deg,
+      #fafafa,
+      #eaeaea,
+      #eaeaea,
+      #fafafa);
+  --tweet-color-red-primary: rgb(249, 24, 128);
+  --tweet-color-red-primary-hover: rgba(249, 24, 128, 0.1);
+  --tweet-color-green-primary: rgb(0, 186, 124);
+  --tweet-color-green-primary-hover: rgba(0, 186, 124, 0.1);
+  --tweet-twitter-icon-color: var(--tweet-font-color);
+  --tweet-verified-old-color: rgb(130, 154, 171);
+  --tweet-verified-blue-color: var(--tweet-color-blue-primary);
+}
+
+.dark .tweet .react-tweet-theme {
+  --tweet-bg-color: #222;
+  --tweet-bg-color-hover: #222;
+  --tweet-quoted-bg-color-hover: rgba(255, 255, 255, 0.03);
+  --tweet-border: 1px solid #333;
+  --tweet-color-blue-secondary: #fff;
+  --tweet-color-blue-secondary-hover: #333;
+  --tweet-font-color-secondary: #9ca3af;
+}
+
+.tweet .react-tweet-theme p {
+  font-size: inherit;
+  line-height: 1.3rem;
+}
+
+.tweet .react-tweet-theme p a:hover {
+  text-decoration: none;
+}
