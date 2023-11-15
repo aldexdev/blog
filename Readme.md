@@ -1,6 +1,6 @@
 # Personal blog (and Portfolio)
 
-based on Guillermo Rauch's [blog](https://github.com/rauchg/blog)
+The code and idea is based on Guillermo Rauch's [blog](https://github.com/rauchg/blog)
 
 This is the blog that powers `aldexdev.com`, built on
 [next.js](https://nextjs.org/) and
