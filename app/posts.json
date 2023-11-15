@@ -1,6 +1,11 @@
 {
   "posts": [
     {
+      "id": "baldurs-iii",
+      "date": "September 20, 2023",
+      "title": "Redefining Roleplaying Games: The Innovation of Baldur's Gate 3"
+    },
+    {
       "id": "good-to-great",
       "date": "April 17, 2023",
       "title": "From Good to Great: True Engineers Understand JavaScript Inside Out"

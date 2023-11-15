@@ -435,7 +435,7 @@ We need to estimate the storage capacity, bandwidth, and number of servers to su
 
 ### Storage estimation
 
-For example, for WatsUp there are more than 100 billion messages shared per day, let’s estimate the storage capacity based on this figure.
+For example, for WhatsApp there are more than 100 billion messages shared per day, let’s estimate the storage capacity based on this figure.
 Assume that each message takes 100 Bytes on average and our servers will keep the messages only for 30 days.
 So, if the user doesn’t get connected to the server within these days, the messages will be permanently deleted from the server.
 
@@ -456,7 +456,7 @@ So, to be precise, we need more than 300 TB per month, but for the sake of simpl
 
 ### Bandwidth estimation
 
-Since our service will get 10TB of data each day we need to divide this by 86400 which is the number of seconds in the day, and this will give us an incoming bandwidth of 926 Mb/s.
+Since our service will get 10TB of data each day we need to divide this by 86400 which is the number of seconds in the day:
 
 ```
 10 TB / 86400 ≈  116 MBps
