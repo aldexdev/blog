@@ -8,14 +8,6 @@ export default async function AboutOG() {
     new URL(`../../public/images/aldexdev_gray.jpg`, import.meta.url)
   ).then(res => res.arrayBuffer());
 
-  // fonts
-  const robotoMono400 = fetch(
-    new URL(
-      `../../node_modules/@fontsource/roboto-mono/files/roboto-mono-latin-400-normal.woff`,
-      import.meta.url
-    )
-  ).then(res => res.arrayBuffer());
-
   return new ImageResponse(
     (
       <div
@@ -54,12 +46,6 @@ export default async function AboutOG() {
     {
       width: 1200,
       height: 630,
-      fonts: [
-        {
-          name: "Roboto Mono 400",
-          data: await robotoMono400,
-        },
-      ],
     }
   );
 }
