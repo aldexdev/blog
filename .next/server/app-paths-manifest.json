@@ -1,5 +1,8 @@
 {
   "/api/view/route": "app/api/view/route.js",
+  "/not-found": "app/not-found.js",
   "/page": "app/page.js",
+  "/icon.png/route": "app/icon.png/route.js",
+  "/api/posts/route": "app/api/posts/route.js",
   "/(post)/2023/baldurs-iii/page": "app/(post)/2023/baldurs-iii/page.js"
 }
