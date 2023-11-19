@@ -17,22 +17,22 @@
       "static/css/app/(post)/2023/baldurs-iii/page.css",
       "static/chunks/app/(post)/2023/baldurs-iii/page.js"
     ],
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
-    ],
     "/(post)/2023/zelda_botw/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/(post)/2023/zelda_botw/page.css",
       "static/chunks/app/(post)/2023/zelda_botw/page.js"
     ],
-    "/(post)/2021/pt/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/(post)/2021/pt/page.css",
-      "static/chunks/app/(post)/2021/pt/page.js"
+      "static/chunks/app/page.js"
+    ],
+    "/(post)/2022/elden-ring/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(post)/2022/elden-ring/page.css",
+      "static/chunks/app/(post)/2022/elden-ring/page.js"
     ]
   }
 }

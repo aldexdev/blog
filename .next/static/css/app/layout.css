@@ -766,20 +766,8 @@ video {
 .self-start {
   align-self: flex-start;
 }
-.overflow-hidden {
-  overflow: hidden;
-}
-.overflow-scroll {
-  overflow: scroll;
-}
 .whitespace-nowrap {
   white-space: nowrap;
-}
-.whitespace-pre-wrap {
-  white-space: pre-wrap;
-}
-.break-all {
-  word-break: break-all;
 }
 .rounded-full {
   border-radius: 9999px;
