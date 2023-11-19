@@ -118,21 +118,21 @@ So the key-value store will be a great fit here because:
 
 ### Message table for 1 on 1 chat
 
-The primary key is message_id, which helps to decide the message sequence.
-We cannot rely on created_at to decide the message sequence because two messages can be created at the same time.
+The primary key is *message_id*, which helps to decide the message sequence.
+We cannot rely on *created_at* to decide the message sequence because two messages can be created at the same time.
 
 ### Message table for group chat
 
-The composite primary key is (channel_id, message_id).
+The composite primary key is *channel_id* + *message_id*.
 A primary key is a unique identifier for each row in a database table.
 A composite primary key consists of two or more columns that together uniquely identify a row.
-In this case, the composite primary key is composed of two columns: channel_id and message_id.
+In this case, the composite primary key is composed of two columns: *channel_id* and *message_id*.
 Channel and group represent the same meaning here.
-channel_id is the partition key because all queries in a group chat operate in a channel.
+*channel_id* is the partition key because all queries in a group chat operate in a channel.
 
 ### Message ID
 
-The message_id is responsible for the order of messages.
+The *message_id* is responsible for the order of messages.
 
 - IDs must be unique.
 - IDs should be sortable by time, meaning new rows have higher IDs than old ones.
@@ -194,7 +194,7 @@ Where:
 
 ### Upload media or document file
 
-We can upload media files via the uploadFile() API by making a POST request to the /v1/media API endpoint.
+We can upload media files via the `uploadFile()` API by making a POST request to the /v1/media API endpoint.
 A successful response will return an ID that’s forwarded to the receiver.
 Let’s say that the maximum file size for media that can be uploaded is 16 MB, while the limit is 100 MB for a document.
 
@@ -216,9 +216,9 @@ downloadFile(user_id, file_id);
 
 **user_id** → unique identifier of the user who will download a file.
 
-**file_id** → unique identifier of a file. It’s generated while uploading a file via uploadFile() API call.
-The downloadFile() API call downloads the media file through this identifier.
-The client can find the file_id by providing the file name to the server.
+**file_id** → unique identifier of a file. It’s generated while uploading a file via `uploadFile()` API call.
+The `downloadFile()` API call downloads the media file through this identifier.
+The client can find the *file_id* by providing the file name to the server.
 
 ## DETAILED DESIGN
 
@@ -339,7 +339,7 @@ User A wants to send a message to a group with some unique ID — for example, G
 > Sharding separates large databases into smaller, more easily managed parts called shards.
 > Each shard shares the same schema, though the actual data on each shard is unique to the shard.
 > User data is allocated to a database server based on user IDs. Anytime you access data, a hash function is used to find the corresponding shard.
-> In our example, user_id % 4 is used as the hash function. If the result equals 0, shard 0 is used to store and fetch data.
+> In our example, `*user_id* % 4` is used as the hash function. If the result equals 0, shard 0 is used to store and fetch data.
 > If the result equals 1, shard 1 is used. The same logic applies to other shards.
 
 ### User service

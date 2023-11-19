@@ -1,5 +1,10 @@
 {
   "pages": {
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -11,28 +16,17 @@
       "static/chunks/main-app.js",
       "static/chunks/app/(post)/layout.js"
     ],
-    "/(post)/2023/baldurs-iii/page": [
+    "/(post)/2023/good-to-great/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/(post)/2023/baldurs-iii/page.css",
-      "static/chunks/app/(post)/2023/baldurs-iii/page.js"
+      "static/css/app/(post)/2023/good-to-great/page.css",
+      "static/chunks/app/(post)/2023/good-to-great/page.js"
     ],
-    "/(post)/2023/zelda_botw/page": [
+    "/(post)/2022/chat-app-arch/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/(post)/2023/zelda_botw/page.css",
-      "static/chunks/app/(post)/2023/zelda_botw/page.js"
-    ],
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
-    ],
-    "/(post)/2022/elden-ring/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(post)/2022/elden-ring/page.css",
-      "static/chunks/app/(post)/2022/elden-ring/page.js"
+      "static/css/app/(post)/2022/chat-app-arch/page.css",
+      "static/chunks/app/(post)/2022/chat-app-arch/page.js"
     ]
   }
 }

@@ -57,7 +57,7 @@ Within this execution environment, two primary components play important roles i
 
 For illustrative purposes:
 
-```
+```js
 function multiply(x, y) {
   return x * y;
 }
@@ -72,10 +72,10 @@ calculate();
 
 In this example:
 
-1. The calculate() function is called, placing its frame on the Call Stack.
-2. Inside calculate(), the multiply() function is invoked, adding its frame to the top of the stack.
-3. Once multiply() completes, it returns the value 15, and its frame is removed from the Call Stack.
-4. The calculate() function continues its execution and logs the value 15 to the console.
+1. The `calculate()` function is called, placing its frame on the Call Stack.
+2. Inside `calculate()`, the `multiply()` function is invoked, adding its frame to the top of the stack.
+3. Once `multiply()` completes, it returns the value 15, and its frame is removed from the Call Stack.
+4. The `calculate()` function continues its execution and logs the value 15 to the console.
    After it finishes executing, its frame is also popped off the Call Stack.
 
 <Image
@@ -121,16 +121,16 @@ console.log("Third");
 
 Let's try to find out its output:
 
-1. console.log('First') is added to the Call Stack and executed.
-2. setTimeout is encountered. The timer operation is handed over to the Web APIs.
-3. Immediately after, console.log('Third') is added to the Call Stack and executed.
-4. Even though the timer duration is 0 milliseconds, the callback of setTimeout (which logs 'Second') is placed in the Callback Queue.
+1. `console.log('First')` is added to the Call Stack and executed.
+2. `setTimeout()` is encountered. The timer operation is handed over to the Web APIs.
+3. Immediately after, `console.log('Third')` is added to the Call Stack and executed.
+4. Even though the timer duration is 0 milliseconds, the callback of `setTimeout()` (which logs 'Second') is placed in the Callback Queue.
 5. The Event Loop, noticing the Call Stack is empty and there’s a function in the Callback Queue, transfers the callback to the Call Stack.
-6. Finally, console.log('Second') is executed.
+6. Finally, `console.log('Second')` is executed.
 
 Then the output of the code will be:
 
-```
+```js
 First
 Third
 Second
@@ -169,7 +169,7 @@ console.log("End");
 
 The output would be:
 
-```
+```js
 Start
 End
 Promise
@@ -177,8 +177,8 @@ setTimeout
 ```
 
 This order is because, after executing the synchronous code (Start and End),
-the event loop sees there’s a promise in the microtask queue and executes that before the setTimeout in the task queue,
-even though the setTimeout has a delay of 0.
+the event loop sees there’s a promise in the microtask queue and executes that before the `setTimeout()` in the task queue,
+even though the `setTimeout()` has a delay of 0.
 
 Let's look at the diagram below.
 Note that the Promise is added by the Javascript Engine now since it is a direct promise, not created by fetch, that case it would go first through Web API.
