@@ -4,6 +4,7 @@ module.exports = withMDX({
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   experimental: {
     mdxRs: true,
+    appDir: true,
   },
   swcMinify: true,
   reactStrictMode: true,
