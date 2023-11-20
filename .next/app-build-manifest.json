@@ -5,28 +5,17 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
+    "/about/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/about/page.css",
+      "static/chunks/app/about/page.js"
+    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
-    ],
-    "/(post)/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(post)/layout.js"
-    ],
-    "/(post)/2023/good-to-great/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(post)/2023/good-to-great/page.css",
-      "static/chunks/app/(post)/2023/good-to-great/page.js"
-    ],
-    "/(post)/2022/chat-app-arch/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(post)/2022/chat-app-arch/page.css",
-      "static/chunks/app/(post)/2022/chat-app-arch/page.js"
     ]
   }
 }

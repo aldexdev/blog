@@ -1,7 +1,7 @@
 {
   "/api/view/route": "app/api/view/route.js",
   "/page": "app/page.js",
-  "/api/posts/route": "app/api/posts/route.js",
-  "/(post)/2023/good-to-great/page": "app/(post)/2023/good-to-great/page.js",
-  "/(post)/2022/chat-app-arch/page": "app/(post)/2022/chat-app-arch/page.js"
+  "/icon.png/route": "app/icon.png/route.js",
+  "/about/page": "app/about/page.js",
+  "/api/posts/route": "app/api/posts/route.js"
 }
