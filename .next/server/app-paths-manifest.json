@@ -3,5 +3,6 @@
   "/page": "app/page.js",
   "/icon.png/route": "app/icon.png/route.js",
   "/about/page": "app/about/page.js",
-  "/api/posts/route": "app/api/posts/route.js"
+  "/api/posts/route": "app/api/posts/route.js",
+  "/(post)/2023/scrum-fails/page": "app/(post)/2023/scrum-fails/page.js"
 }
