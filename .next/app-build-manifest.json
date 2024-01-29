@@ -11,22 +11,16 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
-    "/about/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/about/page.css",
-      "static/chunks/app/about/page.js"
-    ],
     "/(post)/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(post)/layout.js"
     ],
-    "/(post)/2023/scrum-fails/page": [
+    "/(post)/2024/react-server-components/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/(post)/2023/scrum-fails/page.css",
-      "static/chunks/app/(post)/2023/scrum-fails/page.js"
+      "static/css/app/(post)/2024/react-server-components/page.css",
+      "static/chunks/app/(post)/2024/react-server-components/page.js"
     ]
   }
 }

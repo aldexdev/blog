@@ -1,0 +1,337 @@
+export const metadata = {
+  title: "React Server Components: the Good, the Bad and the Ugly",
+  description:
+    "React Server Components (RSCs) augment the fundamentals of React beyond being a pure rendering library into incorporating data-fetching and remote client-server communication within the framework. Let's dive right in the pros and cons of RSCs and when/how we should use them.",
+  openGraph: {
+    title: "React Server Components: the Good, the Bad and the Ugly",
+    description:
+      "React Server Components (RSCs) augment the fundamentals of React beyond being a pure rendering library into incorporating data-fetching and remote client-server communication within the framework. Let's dive right in the pros and cons of RSCs and when/how we should use them.",
+  },
+};
+
+React Server Components bring server-exclusive capabilities to React.
+I’ve been using this new paradigm within Next.js 13 and 14, and what follows is my honest assessment of it.
+
+I’m writing this from the perspective of someone who cares heavily about user experience.
+I do also care about developer experience, but the user always comes first.
+
+<Image alt="" src="/images/react-server-components/rsc-banner.webp" />
+
+## WHAT ARE RSCs?
+
+I could just get into it, but I want to make sure we’re all on the same page first, since there’s a whole lot of misconceptions about React Server Components and React itself.
+
+Until recently, React could be described as a UI rendering framework that lets you write reusable, composable components as JavaScript functions.
+
+- These functions simply return some markup, and can run on both the server and the client.
+- On the client, these functions can “hydrate” the HTML received from the server.
+  This process is where React attaches event handlers on the existing markup and runs initialization logic, letting you “hook” into any arbitrary JavaScript code for interactivity.
+
+React is often used with a **server framework** -like Next.js, Remix, Express or Fastify- which controls the HTTP request/response lifecycle.
+This framework provides a convenient place for managing three important things:
+
+1. **Routing**: Defining which markup is associated with which URL path.
+2. **Data fetching**: Any logic that runs before rendering starts. This includes reading from the database, making API calls, user authentication, etc.
+3. **Mutations**: Processing user-initiated actions after initial load. This includes handling form submissions, exposing API endpoints, etc.
+
+Fast forward to today, React is now able to take more control over each of these parts.
+It is no longer just a UI rendering framework.
+It is also sort of a blueprint for how a server framework should expose these important server-side features.
+
+These new features were first introduced more than three years ago and are finally released in a canary version of React, which is considered stable for use primarily within the Next.js App Router.
+
+Next.js, being a complete metaframework, also includes additional features like bundling, middleware, static generation, and more.
+In the future, more metaframeworks will incorporate React’s new features, but it will take some time because it requires tight integration at the bundler level.
+
+React’s older features have been renamed to Client Components, and they can be used alongside new server features by adding the <code>"use client"</code> directive at the server-client boundary.
+Yes, the name is a bit confusing, as these client components can add client-side interactivity and also be prerendered on the server -same as before.
+
+## THE GOOD
+
+First of all, this is cool:
+
+```js
+export default async function Page() {
+  const stuff = await fetch(/* … */);
+  return <div>{stuff}</div>;
+}
+```
+
+Server-side data-fetching and UI rendering in the same place is hella nice!
+
+But this is not necessarily a new thing. That exact same code has worked in Preact (via [Fresh](https://fresh.deno.dev/docs/concepts/data-fetching#asynchronous-routes)) since 2022.
+
+Even within old-school React, it has always been possible to fetch data on the server and render some UI using that data, all as part of the same request.
+Code below is simplified for brevity; you’ll usually want to use your framework’s designated data-fetching approach, like Remix loaders or Astro frontmatter.
+
+```js
+const stuff = await fetch(/* … */);
+ReactDOM.renderToString(<div>{stuff}</div>);
+```
+
+Within Next.js specifically, this used to only be possible at the route-level, which is fine, even preferable in most cases.
+Whereas now, React components can fetch their own data independently.
+This new component-level data-fetching capability does enable additional composability.
+
+If you really think about it, the idea of server-only components itself is pretty straightforward to achieve: render the HTML only on the server, and never hydrate it on the client.
+That’s the whole premise behind islands architecture frameworks like Astro and Fresh, where everything is a server component by default and only the interactive bits get hydrated.
+
+The bigger difference with React Server Components is what happens underneath.
+Server components are converted into an intermediate serializable format,
+which can be prerendered into HTML -same as before- and can also be sent over the wire for rendering on the client -this is new!
+
+But wait… isn’t HTML serializable, why not just send that over the wire?
+Yes, of course, that’s what we’ve been doing all along.
+But this additional step opens up some interesting possibilities:
+
+- Server components can be passed around as props to client components.
+- React can revalidate the server HTML without losing client state.
+
+In a way, this is like the opposite of islands architecture, where the static HTML parts can be thought of as server islands in a sea of mostly interactive components.
+
+Slightly contrived example:
+you want to display a timestamp that you format using a fancy library.
+With server components, you can:
+
+1. Format this timestamp on the server without bloating your client bundle with the fancy library.
+2. Revalidate -some time later- this timestamp on the server and let React re-render the displayed string entirely on the client.
+
+Previously, to achieve a similar result, you would have had to <code>innerHTML</code> a server-generated string, which is not always feasible or even advisable.
+So this is certainly an improvement.
+
+Instead of treating the server as simply a place to retrieve data from, you can now retrieve the entire component tree from the server -for both initial load and future updates.
+This is more efficient and results in a better experience for both the developer and the user.
+
+<Image alt="" src="/images/react-server-components/rsc-draw.jpeg" />
+
+### The Almost Good
+
+With server actions, React now has an official RPC-like way of executing server-side code in response to user interaction.
+And it progressively enhances the built-in HTML _form_ element so that it works without JavaScript.
+
+```js
+<form
+  action={async formData => {
+    "use server";
+    const email = formData.get("email");
+    await db.emails.insert({ email });
+  }}
+>
+  <label htmlFor="email">Email</label>
+  <input id="email" name="email" type="email" />
+  <button>Send me spam</button>
+</form>
+```
+
+We’re going to gloss over the fact that React is overloading the built-in _action_ attribute and changing the default method from “GET” to “POST”.
+
+We’re also going to gloss over the weirdly-named <code>"use server"</code> directive, which is needed even if the action is already defined in a server component.
+It would be more apt to name it something like <code>"use endpoint"</code>, since it’s basically syntactic sugar for an API endpoint.
+
+The example above is still almost perfect.
+Everything is colocated, feels elegant, and works without JavaScript.
+Even if most of the business logic lives in a separate place, the colocation is especially nice because the form data object relies on the names of the form fields.
+
+Most importantly, it avoids the need to wire up these pieces manually
+(which would involve some gross spaghetti code for making a fetch request to an endpoint and handling its response) or relying on a third-party library.
+
+## THE BAD
+
+Let’s say you want to progressively enhance your form so that when the server action is processing, you prevent accidental resubmissions by disabling the button.
+
+You’ll need to move the button into a different file because it uses <code>useFormStatus</code> -a client-side hook.
+Mildly annoying, but at least the rest of the form is still unchanged.
+
+```js
+"use client";
+export default function SubmitButton({ children }) {
+  const { pending } = useFormStatus();
+  return <button disabled={pending}>{children}</button>;
+}
+```
+
+Now let’s say you also want to handle errors.
+Most forms need at least some basic error handling.
+In this example, you might want to show an error if the email is invalid or banned or something.
+
+To use the error value returned by a server action, you’ll need to bring in <code>useFormState</code> -another client hook-,
+which means the form needs to be moved into a client component and the action needs to be moved into a separate file.
+
+```js
+"use server";
+export default async function saveEmailAction(_, formData) {
+  const email = formData.get("email");
+  if (!isEmailValid(email)) return { error: "Bad email" };
+  await db.emails.insert({ email });
+}
+```
+
+```js
+"use client";
+const [formState, formAction] = useFormState(saveEmailAction);
+
+<form action={formAction}>
+  <label htmlFor="email">Email</label>
+  <input id="email" name="email" type="email" aria-describedby="error" />
+  <SubmitButton>Send me spam</SubmitButton>
+  <p id="error">{formState?.error}</p>
+</form>;
+```
+
+Confusingly, even though this is now in a client component, the form still works without JavaScript!
+However:
+
+- The closely-related code is **no longer colocated**. The action needs a <code>"use server"</code> directive anyway,
+  so why not allow defining it in the same file as the client component?
+- The **action’s signature** has suddenly changed. Why not keep the form data object as the first argument?
+- It took me a little bit of fiddling to make this work without JavaScript, because the official documentation shows a broken example.
+  The key insight here is to pass the server action directly into <code>useFormState</code> and pass its returned action directly into the form’s _action_ prop.
+  If you create any wrapper functions at any point, then it will no longer function without JavaScript.
+  A **good lint rule** could probably help avoid this error.
+
+The <code>"use client"</code> thing also starts to get unwieldy as your application grows more complex.
+It is possible to interleave server and client components, but it requires you to pass server components as props, rather than importing them from client components.
+This might be manageable for the first few levels from the top, but in practice, you will mostly rely on client components when deeper in the tree.
+That’s just the natural and convenient way of writing code.
+
+<Image alt="" src="/images/react-server-components/client-server.png" />
+
+Let’s revisit that timestamp example from above.
+What if you want to display the timestamp within a table which happens to be a client component nested within multiple levels of other client components?
+You could try to do some serious prop drilling or store the server component in a global store -or context- at the nearest server-client boundary.
+Realistically though, you might just keep using client components and incur the cost of sending _date-fns_ to the browser.
+
+Being locked out of using async components after a certain depth might not be such a bad thing.
+You can still reasonably build your application, since data-fetching should probably only happen at or near the route level.
+A similar limitation also exists in island frameworks, in that they do not allow importing static/server components within islands.
+It’s still disappointing though, because React took more than three years and came up with the most complex solution,
+all the while promising that server and client components will interop seamlessly.
+
+What may not be obvious is that this restriction has some serious implications.
+Inside a client component, all its dependencies are also part of the client. This cascades down pretty quickly.
+A large number of components do not use features exclusive to the server or client, and they should probably stay on the server.
+But they will end up in the client bundle because they were imported into other client components.
+And you might not even realize this, if these components do not use the <code>"use client"</code> directive themselves.
+To keep the client code small, you’ll have to be intentional and extra vigilant, because doing the “wrong” thing is easier.
+It’s like climbing out of a pit of failure.
+
+## THE UGLY
+
+For some godforsaken reason, Next.js decided that it would be a good idea to “extend” the built-in fetch API within server components.
+They could have exposed a wrapper function, but that would make too much sense I guess.
+
+And by “extend” I don’t just mean adding additional options to it.
+They’ve literally changed how fetch works!
+All requests are aggressively cached by default.
+Except if you’re accessing cookies, then it might not be cached.
+It’s a confusing, haphazard mess that makes very little sense.
+And you might not even realize what is and isn’t cached until you deploy to production, because the local dev server behaves differently.
+
+To make matters worse, Next.js doesn’t let you access the request object.
+I don’t even have the words to articulate how ridiculous it is that they would hide this from you.
+
+You also can’t set headers, cookies, status codes, redirect, etc. outside of middleware.
+This is because the App Router is built around streaming, and it would be too late to modify the response after streaming starts.
+But then, why not allow more control over when streaming starts?
+Middleware can only run on the edge which makes it too limiting for many scenarios.
+Why not allow middleware to run in the Node runtime before streaming starts?
+
+In the old Next.js Pages Router, none of these problems existed -except the middleware runtime limitation.
+Routes behaved predictably and there was a clear distinction between “static” and “dynamic” data.
+You had access to the request information and you could modify the response. You had way more control!
+That’s not to say the Pages Router didn’t come with its own weirdness, but it worked fine.
+
+<Image
+  alt={<span>NextJS Pages Routes structure</span>}
+  src="/images/react-server-components/pages-routes.png"
+/>
+
+### The Uglier
+
+Everything I’ve mentioned so far would be tolerable to varying degrees… if the bundle size got smaller.
+In reality, bundles are getting larger.
+
+Two years ago, Next.js 12, with Pages Router, had a baseline bundle size of ~70KB compressed.
+Today, Next.js 14, with App Router, starts at a baseline of 85-90KB.
+After uncompressing, that’s almost 300KB of JavaScript that the browser needs to parse and execute, just to hydrate a “Hello World” page.
+
+To reiterate, this is the minimum cost that your users need to pay regardless of the size of your website.
+Concurrent features and selective hydration can help prioritize user events, but do not help with this baseline cost.
+They’re probably even contributing to this cost too, just by virtue of existing.
+Caching can help avoid the cost of redownloading in some cases, but the browser still needs to parse and execute all that code.
+
+If this does not sound like a big deal, consider that JavaScript can fail in many ways.
+And remember that the real world exists outside your fancy MacBook Pro and gigabit internet;
+most of your users are likely visiting your site on a much less powerful device.
+
+Why does any of this matter for this post?
+Because reducing bundle size is touted as one of the main motivators for React Server Components.
+
+Sure, server components themselves will not add any more JavaScript to the client bundle, but the base bundle is still there.
+And the base bundle now also needs to include code to handle how server components fit into client components.
+
+Then, there’s also the data duplication problem.
+Remember, server components don’t render directly to HTML;
+they are first converted into an intermediate representation of the HTML.
+So even though they will be prerendered on the server and sent as HTML, the intermediate payload will still also be sent alongside.
+
+In practice, this means the entirety of your HTML will be duplicated at the end of the page inside script tags.
+The larger the page, the larger these script tags.
+All your _tailwind_ classes?
+Oh yeah, they’re all duplicated.
+Server components may not add more code to the client bundle, but they will continue to add to this payload.
+
+This does not come free.
+The user’s device will need to download a larger document, which is less of a problem with compression and streaming but still, and also consume more memory.
+
+Apparently this payload helps speed up client-side navigation, but I’m not convinced that that’s a strong enough reason.
+Many other frameworks have implemented this same thing with only HTML.
+More importantly, I disagree with the very premise of client-side navigation.
+The vast majority of navigations on the web should be done using regular-ass links,
+which work more reliably, don’t throw away browser optimizations, don’t cause accessibility issues, and can perform just as well -with prefetching.
+Using client-side navigation is a decision that should be thoughtfully made on a per-link basis.
+Building a whole paradigm around client-side navigations just feels wrong.
+
+<Image
+  alt={<span>NextJS bundle size example</span>}
+  src="/images/react-server-components/next-size.png"
+/>
+
+## FINAL THOUGHTS
+
+React is introducing some much-needed server primitives to the React world.
+Many of these capabilities are not necessarily new, but there is now a shared language and an idiomatic way of doing server things, which is a net positive.
+I’m cautiously optimistic about the new APIs, warts and all.
+And I’m glad to see React embracing a server-first mentality.
+
+At the same time, React has done nothing to improve their pitiful client-side story.
+It is a legacy framework created to solve Facebook-scale problems with Facebook-scale resources, and as such is a bad fit for most use cases.
+Heading into 2024, here are some of the many things that React has yet to address:
+
+- Client bundle is bloated with unnecessary features, like the synthetic event system.
+- Built-in state management is highly inefficient for deep trees, causing most applications to adopt a third-party state manager.
+- Widely-available browser APIs, like custom elements and templates, are either not fully supported or do not work at all.
+- Newer HTML APIs -such as inert and popover attributes- do not work out-of-the-box without workarounds.
+- There is no idiomatic way to write CSS within components.
+- Lots of unnecessary and avoidable boilerplate (for example, <code>forwardRef</code>) needs to be frequently written, especially when building libraries.
+- Expensive components need to be carefully memoized -or restructured- to avoid performance issues.
+- No ESM build available, and no way to tree-shake unused features, like class components.
+- We won’t talk about <code>useEffect</code> hook...
+
+These aren’t unsolved problems; these are invented problems that are a direct consequence of the way React is designed.
+In a world full of modern frameworks that do not have most of these issues, React is effectively technical debt.
+
+I’d argue that adding server capabilities to React is much less important than fixing its many existing issues.
+There are lots of ways to write server-side logic without React Server Components,
+but it is impossible to avoid the atrocious mess that React creates on the client without replacing React altogether.
+
+Maybe you’re not concerned about any of the problems that I illustrated, or maybe you call it a sunk cost and continue on with your day.
+Hopefully, you can at least recognize that React and Next.js have a long way to go.
+
+<Image alt="" src="/images/react-server-components/next-react.png" />
+
+I do understand that open source projects are not obliged to solve anyone else’s problems, but React and Next.js are both built by/for huge companies,
+so I think all the criticism is warranted.
+
+As a final note, I just want to emphasize that it is currently very difficult to draw a line between React and Next.js.
+Some -or many- of these new APIs might look and feel different within a framework that has more respect for standards.

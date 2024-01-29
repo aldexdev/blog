@@ -2,7 +2,6 @@
   "/api/view/route": "app/api/view/route.js",
   "/page": "app/page.js",
   "/icon.png/route": "app/icon.png/route.js",
-  "/about/page": "app/about/page.js",
   "/api/posts/route": "app/api/posts/route.js",
-  "/(post)/2023/scrum-fails/page": "app/(post)/2023/scrum-fails/page.js"
+  "/(post)/2024/react-server-components/page": "app/(post)/2024/react-server-components/page.js"
 }
