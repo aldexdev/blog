@@ -1,6 +1,11 @@
 {
   "posts": [
     {
+      "id": "tlou-part-II",
+      "date": "March 21, 2024",
+      "title": "The Last Of Us Part II: Forgiveness Through Pain"
+    },
+    {
       "id": "react-server-components",
       "date": "January 22, 2024",
       "title": "React Server Components: the Good, the Bad and the Ugly"
