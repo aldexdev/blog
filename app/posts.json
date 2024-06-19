@@ -1,19 +1,14 @@
 {
   "posts": [
     {
-      "id": "tlou-part-II",
-      "date": "March 21, 2024",
-      "title": "The Last Of Us Part II: Forgiveness Through Pain"
+      "id": "near-bos",
+      "date": "June 20, 2024",
+      "title": "NEAR is the BOS. Decentralized Operating Systems"
     },
     {
       "id": "react-server-components",
       "date": "January 22, 2024",
       "title": "React Server Components: the Good, the Bad and the Ugly"
-    },
-    {
-      "id": "baldurs-iii",
-      "date": "September 30, 2023",
-      "title": "Redefining Roleplaying Games: The Innovation of Baldur's Gate 3"
     },
     {
       "id": "good-to-great",
